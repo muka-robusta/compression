@@ -87,7 +87,9 @@ void init_table(symbol * sy)
 {
 	for(int i = 0; i < 256; i++)
 	{
-		(sy + i) -> value = (char) i; 
+		(sy + i) -> value = (char) i;
+		(sy + i) -> quantity = 0;
+		(sy + i) -> probability = 0.0; 
 
 	}
 	return;
@@ -122,24 +124,36 @@ int fact_size(symbol * syms)//the array must be sorted
 	return size;
 }
 
+int text_size(symbol * sy)
+{
+	int size = 0;
+	for(int i = 0;i< 256;i++)
+	{
+		size += (sy + i) -> getQuantity();
+	}
+	return size;
+}
+
 symbol * get_fact_table(symbol * all_sy)//sorting here probabilities
 {
 	int size = fact_size(all_sy);
 	quick_sort(all_sy,0,255);
-
-	for(int i = 0; i < 256; i++)
-	{
-		cout<<"sy: "<<(all_sy + i) -> getValue() <<" "<< (all_sy + i) -> getQuantity() <<endl;
-	}
+	int text_symb_size = text_size(all_sy);
 
 	symbol * fact_syms = new symbol[size];
 	for(int i = 0; i < size; i++)
 	{
 		*(fact_syms + i) = *(all_sy + i);
-		float prob =((float) (fact_syms + i) -> getQuantity()) / size;
-		(fact_syms) -> setProbability(prob);
+
+		float quant_sy_in_float = (float) (fact_syms + i) -> getQuantity();
+		float prob = quant_sy_in_float / text_symb_size;
+		
+		(fact_syms + i) -> setProbability(prob);
+		
 	}
 	return fact_syms;
 }
+
+
 
 

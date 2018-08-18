@@ -4,7 +4,7 @@
 
 int main()
 {
-	cout << "Enter the path of the file" << endl;
+	cout << "Enter the path of the file: ";
 	char * path = new char[50];
 	cin >> path;
 
@@ -24,11 +24,11 @@ int main()
 		symbol * temp_table = handle_text(buffer,size_of_the_text);
 		symbol * table = get_fact_table(temp_table);
 		int size = fact_size(table);
-		//delete [] temp_table;
-		/*for(int i = 0; i < size; i++)
+		delete [] temp_table;
+		for(int i = 0; i < size; i++)
 		{
 			cout << "SYMBOL [" << (table + i) -> getValue() << " qua: "<<(table + i) -> getQuantity() <<"] with PROBABILITY: " << (table + i) -> getProbability() << endl;
-		}*/
+		}
 	}
 
 	return 0;
